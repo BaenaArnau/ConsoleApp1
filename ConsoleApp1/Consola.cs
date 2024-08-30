@@ -24,6 +24,7 @@ namespace ConsoleApp1
                 nuevaCadena = "";
                 mayuscula = true;
                 minuscula = true;
+
                 Console.WriteLine("Inserte la cadena de texto");
                 cadena = Console.ReadLine();
                 Console.WriteLine("Quieres pasarlo a CamelCase o LowerCase");
