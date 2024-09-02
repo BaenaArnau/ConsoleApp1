@@ -135,7 +135,7 @@ Presiona 0 para salir");
             bool polidromo = false;
 
             Console.WriteLine("Escriba la palabra a continuacion:");
-            entrada = Console.ReadLine();
+            entrada = Console.ReadLine().ToLower();
 
             for (int i = 0; i < entrada.Length; i++)
             {
@@ -147,16 +147,8 @@ Presiona 0 para salir");
                 }
             }
 
-            if (polidromo)
-            {
-                Console.WriteLine("La palabra " + entrada + " es un polinomio");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("La palabra " + entrada + " no es un polinomio");
-                Console.ReadKey();
-            }
+            if (polidromo) Console.WriteLine("La palabra " + entrada + " es un polinomio");
+            else Console.WriteLine("La palabra " + entrada + " no es un polinomio");
         }
     }
 }
