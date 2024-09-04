@@ -18,35 +18,56 @@ namespace ConsoleApp1
                 int valorMenu;
                 
                 Menu();
-                valorMenu = int.Parse(Console.ReadLine());
+                bool funciona = int.TryParse(Console.ReadLine(), out valorMenu);
 
-                switch (valorMenu)
+                if (funciona)
                 {
-                    case 1:
-                        ConvertorDeUpAndDown();
-                        break;
-                    case 2:
-                        ComparadorFecha();
-                        break;
-                    case 3:
-                        Polidromo();
-                        break;
-                    case 4:
-                        Potencia();
-                        break;
-                    case 5:
-                        Dividir();
-                        break;
-                    case 6:
-                        ComparadorDeTexto();
-                        break;
-                    case 0:
-                        bucle = false;
-                        break;
-                    default:
-                        Console.WriteLine("Introduzca una opcion valida");
-                        break;
+                    switch (valorMenu)
+                    {
+                        case 1:
+                            ConvertorDeUpAndDown();
+                            break;
+                        case 2:
+                            ComparadorFecha();
+                            break;
+                        case 3:
+                            Polidromo();
+                            break;
+                        case 4:
+                            Potencia();
+                            break;
+                        case 5:
+                            Dividir();
+                            break;
+                        case 6:
+                            ComparadorDeTexto();
+                            break;
+                        case 7:
+                            InvertirsionTexto();
+                            break;
+                        case 8:
+                            CalcularMedia();
+                            break;
+                        case 9:
+                            InvertirNumero();
+                            break;
+                        case 10:
+                            AdivinaElNumero();
+                            break;
+                        case 11:
+                            NumerosPares();
+                            break;
+                        case 0:
+                            bucle = false;
+                            break;
+                        default:
+                            Console.WriteLine("Introduzca una opcion valida");
+                            break;
+                    }
                 }
+                else
+                    Console.WriteLine("Introduzca un numero");
+                
             }
         }
 
@@ -59,6 +80,11 @@ namespace ConsoleApp1
 4.      Calcular potencia
 5.      Dividir
 6.      Comparar text alfabeticamente
+7.      Invertir un texto
+8.      Calcula la media
+9.      Invertir numero
+10.     Juego de divinar el numero
+11.     Encunetra numero pares hasta el 20
 
 Presiona 0 para salir");
         }
@@ -66,9 +92,6 @@ Presiona 0 para salir");
         public static void ConvertorDeUpAndDown()
         {
             String cadena;
-            String nuevaCadena = "";
-            bool mayuscula = true;
-            bool minuscula = true;
             int opciones;
 
             Console.WriteLine("Inserte la cadena de texto");
@@ -133,13 +156,12 @@ Presiona 0 para salir");
 
         public static void ComparadorFecha()
         {
-            string fecha1, fecha2;
             bool igual = false;
 
             Console.WriteLine("Escriba la primera fecha a continuacion (ej: MM/dd/yyyy)");
-            fecha1 = Console.ReadLine();
+            string fecha1 = Console.ReadLine();
             Console.WriteLine("Escriba la segunda fecha a continuacion (ej: MM/dd/yyyy)");
-            fecha2 = Console.ReadLine();
+            string fecha2 = Console.ReadLine();
 
             if (fecha1.Length == 10 && fecha2.Length == 10)
             {
@@ -282,5 +304,158 @@ Presiona 0 para salir");
                 return true;
             }
         }
+
+        public static void InvertirsionTexto()
+        {
+            Console.WriteLine("Escriba el texto que quiere invertir");
+            string entrada = Console.ReadLine();
+            string salida = "";
+
+            for (int i = entrada.Length - 1; i >= 0; i--)
+            {
+                salida = salida + entrada[i];
+            }
+
+            Console.WriteLine(salida);
+        }
+
+        public static void CalcularMedia()
+        {
+            Console.WriteLine("Introduzca los numero separados por comas (ej: 1,2,3,4)");
+            int[] listaDeNumeros;
+
+            try
+            {
+                listaDeNumeros = Array.ConvertAll(Console.ReadLine().Trim().Split(','), Convert.ToInt32);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            int resultado = 0;
+
+            for (int i = 0; i < listaDeNumeros.Length; i++)
+            {
+                resultado = resultado + listaDeNumeros[i];
+            }
+
+            resultado = resultado / listaDeNumeros.Length;
+
+            Console.WriteLine(resultado);
+        }
+
+        public static void InvertirNumero()
+        {
+            Console.WriteLine("Escriba el numero a invertir");
+            bool funciona = int.TryParse(Console.ReadLine(), out int numero);
+            int longitudDelNumero = (int)Math.Floor(Math.Log10(numero));
+            int ultimoDigito;
+            int resultado = 0;
+
+            if (funciona)
+            {
+                for (int i = 0; i < longitudDelNumero; i++)
+                {
+                    ultimoDigito = numero % 10;
+                    numero = numero / 10;
+                    resultado = (resultado * 10) + ultimoDigito;
+                }
+
+                Console.WriteLine("Numero invertido: " + resultado);
+            }
+            else
+                Console.WriteLine("Introduzca un numero");
+        }
+
+        public static void AdivinaElNumero()
+        {
+            Console.WriteLine("Generando numero...");
+
+            Random random = new Random();
+            int numeroRandom = random.Next(1, 20);
+
+            Console.WriteLine("Numero generado empezando juego");
+
+            while (true)
+            {
+                Console.WriteLine("Introduzca un numero");
+                bool funciona = int.TryParse(Console.ReadLine(), out int entrada);
+
+                if (funciona)
+                {
+                    if (entrada < numeroRandom)
+                        Console.WriteLine("El numero es mas grande");
+                    else if (entrada > numeroRandom)
+                        Console.WriteLine("El numero es mas pequeño");
+                    else
+                    {
+                        Console.WriteLine("Has encontrado el numero");
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Escriba un valor valido");
+                }
+            }
+        }
+
+        public static void NumerosPares()
+        {
+            Console.WriteLine(@"
+Elige que tipo de bucle quieres usar:
+
+1.      Utilizar un for
+2.      Utilizar un while
+3.      Utilizar un do/while
+
+Escriba 0 para salir de programa");
+
+            bool funciona = int.TryParse(Console.ReadLine(), out int opcion);
+
+            if (funciona)
+            {
+               NumerosPares(opcion);
+            }
+        }
+
+        public static void NumerosPares(int opcion)
+        {
+            int contador = 1;
+            switch (opcion)
+            {
+                case 1:
+                    for (int i = 1; i < 20; i++)
+                    {
+                        if (i % 2 == 0)
+                            Console.WriteLine(i);
+                    }
+                    break;
+                case 2:
+                    while (contador < 20)
+                    {
+                        if (contador % 2 == 0)
+                            Console.WriteLine(contador);
+                        if (contador == 20)
+                            break;
+
+                        contador++;
+                    }
+                    break;
+                case 3:
+                    do
+                    {
+                        if (contador % 2 == 0)
+                            Console.WriteLine(contador);
+                        contador++;
+                    } while (contador < 20);
+                    break;
+                case 0:
+                    break;
+            }
+        }
+
     }
 }
