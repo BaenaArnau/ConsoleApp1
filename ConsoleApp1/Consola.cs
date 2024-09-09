@@ -481,12 +481,9 @@ Escriba 0 para salir de programa");
             entrada = Console.ReadLine();
 
             if (DiaSemana.TryParse(entrada.ToLower(), out dia))
-            {
                 Console.WriteLine("El dia de la semana es " + (dia.GetHashCode() + 1));
-            }
 
             Console.WriteLine("Escriba una opcion valida");
         }
-
     }
 }
