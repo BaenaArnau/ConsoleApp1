@@ -9,6 +9,17 @@ namespace ConsoleApp1
 {
     internal class Consola
     {
+        enum DiaSemana
+        {
+            lunes,
+            martes,
+            miercoles,
+            jueves,
+            viernes,
+            sabado,
+            domingo
+        }
+
         static void Main(string[] args)
         {
             bool bucle = true;
@@ -57,6 +68,9 @@ namespace ConsoleApp1
                         case 11:
                             NumerosPares();
                             break;
+                        case 12:
+                            PreguntarDiaDeLaSemana();
+                            break;
                         case 0:
                             bucle = false;
                             break;
@@ -85,6 +99,7 @@ namespace ConsoleApp1
 9.      Invertir numero
 10.     Juego de divinar el numero
 11.     Encunetra numero pares hasta el 20
+12.     Comversor a dia de la semana
 
 Presiona 0 para salir");
         }
@@ -455,6 +470,22 @@ Escriba 0 para salir de programa");
                 case 0:
                     break;
             }
+        }
+
+        public static void PreguntarDiaDeLaSemana()
+        {
+            string entrada;
+            DiaSemana dia = new DiaSemana();
+
+            Console.Write("Escriba el dia de la semana: ");
+            entrada = Console.ReadLine();
+
+            if (DiaSemana.TryParse(entrada.ToLower(), out dia))
+            {
+                Console.WriteLine("El dia de la semana es " + (dia.GetHashCode() + 1));
+            }
+
+            Console.WriteLine("Escriba una opcion valida");
         }
 
     }
